@@ -1,0 +1,43 @@
+{
+  "ignition": {
+    "version": "3.4.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "PUBLIC_SSH_KEY"
+        ]
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "overwrite": true,
+        "path": "/etc/selinux/config",
+        "contents": {
+          "compression": "",
+          "source": "data:,SELINUX%3Dpermissive%0ASELINUXTYPE%3Dtargeted%0A"
+        }
+      },
+      {
+        "overwrite": true,
+        "path": "/etc/sysctl.d/60-rke2-cis.conf",
+        "contents": {
+          "compression": "",
+          "source": "data:,vm.panic_on_oom%3D0%0Avm.overcommit_memory%3D1%0Akernel.panic%3D10%0Akernel.panic_on_oops%3D1%0A"
+        }
+      },
+      {
+        "overwrite": true,
+        "path": "/etc/zincati/config.d/55-updates-strategy.toml",
+        "contents": {
+          "compression": "",
+          "source": "data:;base64,W3VwZGF0ZXNdCnN0cmF0ZWd5ID0gImZsZWV0X2xvY2siClt1cGRhdGVzLmZsZWV0X2xvY2tdCmJhc2VfdXJsID0gImh0dHA6Ly8xMC40My4wLjExLyIKW2lkZW50aXR5XQpyb2xsb3V0X3dhcmluZXNzID0gMC41Cg=="
+        }
+      }
+    ]
+  }
+}

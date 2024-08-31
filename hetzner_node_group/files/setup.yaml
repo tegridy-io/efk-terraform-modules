@@ -1,0 +1,33 @@
+variant: fcos
+version: 1.5.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - PUBLIC_SSH_KEY
+storage:
+  files:
+    - path: /etc/selinux/config
+      overwrite: true
+      contents:
+        inline: |
+          SELINUX=permissive
+          SELINUXTYPE=targeted
+    - path: /etc/sysctl.d/60-rke2-cis.conf
+      overwrite: true
+      contents:
+        inline: |
+          vm.panic_on_oom=0
+          vm.overcommit_memory=1
+          kernel.panic=10
+          kernel.panic_on_oops=1
+    - path: /etc/zincati/config.d/55-updates-strategy.toml
+      overwrite: true
+      contents:
+        inline: |
+          [updates]
+          strategy = "fleet_lock"
+          [updates.fleet_lock]
+          base_url = "http://10.43.0.11/"
+          [identity]
+          rollout_wariness = 0.5
